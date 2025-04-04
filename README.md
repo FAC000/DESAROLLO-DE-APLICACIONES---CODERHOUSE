@@ -54,6 +54,8 @@ También incluye autenticación, gestión de perfil y un historial de compras.
 
 ✦ /utils: Funciones de utilidad reutilizables, como validaciones con Yup.
 
+---
+
 
 🛠 INSTALACION Y EJECUCION: 
 
