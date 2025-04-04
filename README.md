@@ -8,7 +8,6 @@ También incluye autenticación, gestión de perfil y un historial de compras.
 ![Image](https://github.com/user-attachments/assets/6ffdc0b0-796c-417f-aa11-c7d708144387)
 
   
-
 ---
 
 ## 🚀 Funcionalidades principales.
@@ -96,4 +95,4 @@ Usá la opción Run on Android device/emulator o Run on iOS simulator desde el m
 ## 📷 GIF DE NAVEGACION
 
 
-https://github.com/user-attachments/assets/3936aa46-7b4d-4311-b25f-620d10adeb6d
+https://github.com/user-attachments/assets/81863c5c-9475-49be-be7e-16fc7e4f258a
