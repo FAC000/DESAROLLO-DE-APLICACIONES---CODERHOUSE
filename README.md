@@ -1,7 +1,7 @@
 
-# 🎬 My Cinema
+# 🎬 CINEVA
 
-**My Cinema** es una aplicación móvil desarrollada con **React Native** que permite explorar una cartelera de películas, seleccionar funciones y horarios, agregar entradas al carrito y finalizar la compra. 
+** CINEVA ** es una aplicación móvil desarrollada con **React Native** que permite explorar una cartelera de películas, seleccionar funciones y horarios, agregar entradas al carrito y finalizar la compra. 
 También incluye autenticación, gestión de perfil y un historial de compras.
 
 
@@ -59,8 +59,11 @@ También incluye autenticación, gestión de perfil y un historial de compras.
 
 1. Clonar el repositorio:
 
-git clone https://github.com/FAC000/my-cinema.git
-cd my-cinema
+git clone git clone https://github.com/FAC000/DESAROLLO-DE-APLICACIONES---CODERHOUSE.git
+cd DESAROLLO-DE-APLICACIONES---CODERHOUSE
+
+💡 Tip: Si querés que el proyecto se clone con otro nombre (por ejemplo my-cinema), podés hacerlo así:
+cd my-cinema 
 
 2. Instalar dependencias:
  
