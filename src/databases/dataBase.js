@@ -1,0 +1,1 @@
+export const baseUrl = 'https://cineva-bdd03-default-rtdb.firebaseio.com/'  
