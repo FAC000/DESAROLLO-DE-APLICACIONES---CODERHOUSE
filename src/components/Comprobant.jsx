@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         color: colors.cinco,
         textTransform: 'uppercase',
         marginVertical: 5,
-        fontWeight: 'bold',
+        fontFamily : 'Oswald',
         textAlign: 'center'
     },
 });

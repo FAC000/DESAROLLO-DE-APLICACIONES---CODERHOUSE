@@ -105,16 +105,19 @@ const styles = StyleSheet.create({
         gap: 80,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 5
+        paddingVertical: 5,
+        
     },
     datosDuracionGenero: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 5
+        gap: 5,
+       
     },
     textDuracionGenero: {
         fontSize: 14,
-        color: colors.cinco
+        color: colors.cinco,
+       
     },
     title: {
         color: colors.cuatro,
@@ -133,7 +136,8 @@ const styles = StyleSheet.create({
         color: colors.tres,
         width: '85%',
         lineHeight: 25,
-        letterSpacing: 1
+        letterSpacing: 2,
+        fontFamily : 'Oswald'
     },
     informacionContainer: {
         alignItems: 'center'
@@ -157,7 +161,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        width: '100%'
+        width: '100%',
     },
     horariosText: {
         color: colors.cuatro,
@@ -165,12 +169,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 20,
         fontWeight: 600,
-        flex: 1
+        flex: 1,
+        fontFamily : 'Oswald'
     },
     horariosDuracion: {
         fontSize: 18,
         marginBottom: 10,
-        color: colors.cuatro
+        color: colors.cuatro,
+        
     },
     horariosIdioma: {
         textAlign: 'center',
@@ -178,7 +184,8 @@ const styles = StyleSheet.create({
         letterSpacing: 1,
         textTransform: 'uppercase',
         fontSize: 10,
-        flex: 1
+        flex: 1,
+        fontFamily : 'Oswald'
     },
 
 });

@@ -74,8 +74,8 @@ export const Cart = ({ navigation }) => {
             )}
 
             <View style={styles.totalPrecioContainer}>
-                <Text style={styles.totalText}>Total a pagar:</Text>
-                <Text style={styles.totalPrecio}>$ {totalCarrito}</Text>
+                <Text style={styles.totalText}>Total a pagar: </Text>
+                <Text style={styles.totalPrecio}>${totalCarrito}</Text>
             </View>
 
 
@@ -137,7 +137,6 @@ const styles = StyleSheet.create({
     },
     carritoText: {
         fontSize: 20,
-        fontWeight: 'bold',
         color: colors.cinco,
         textTransform: 'uppercase',
         letterSpacing: 1,
@@ -145,6 +144,7 @@ const styles = StyleSheet.create({
         textShadowColor: colors.tres,
         textShadowOffset: { width: 2, height: 2 },
         textShadowRadius: 2,
+        fontFamily : 'Oswald'
     },
 
     textIdiomaFormato: {
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         textTransform: 'uppercase',
         marginTop: 5,
-        fontWeight: 'bold',
+        fontFamily : 'Oswald',
         letterSpacing: 1
     },
     horarioText: {
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textTransform: 'uppercase',
         letterSpacing: 2,
-        fontWeight: 'bold',
+        fontFamily : 'Oswald'
     },
     contadorContainer: {
         flexDirection: 'row',
@@ -189,11 +189,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.dos,
+        
 
     },
     totalText: {
         fontSize: 14,
-        fontWeight: 'bold',
+        fontFamily : 'Oswald',
         color: colors.cinco,
         letterSpacing: 1,
         textTransform: 'uppercase',

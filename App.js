@@ -5,11 +5,17 @@ import store from "./src/store";
 import { Navigator } from "./src/navigation/Navigator";
 import { useDB } from "./src/hooks/useDB";
 import { setUser } from "./src/features/user/userSlice";
+import { useFonts } from "expo-font";
+
 
 const Startup = () => {
   const { initDB, getAllSessions } = useDB();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+
+  const [fontsLoaded] = useFonts({
+    "Oswald": require("./assets/fonts/Oswald.ttf"),
+  });
 
   useEffect(() => {
     const initializeApp = async () => {
@@ -42,11 +48,14 @@ const Startup = () => {
     initializeApp();
   }, []);
 
+  if (loading || !fontsLoaded) {
+    return null;
+  }
 
   if (loading) {
     return (
       <SafeAreaView style={styles.centered}>
-        <ActivityIndicator size="large" color="#559e9e" />
+        <ActivityIndicator size="large" color="white" />
       </SafeAreaView>
     );
   }

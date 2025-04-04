@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingBottom:20,
+        paddingBottom: 20,
         paddingTop: 20,
         width: '100%',
         backgroundColor: colors.uno
@@ -68,9 +68,11 @@ const styles = StyleSheet.create({
     textPelicula: {
         color: colors.tres,
         textTransform: 'uppercase',
-        letterSpacing: 2,
+        letterSpacing: 1,
         textAlign: 'center',
-        width: 150, 
-        fontSize: 12
+        width: 150,
+        fontSize: 12,
+        fontFamily : 'Oswald'
+        
     },
 });
