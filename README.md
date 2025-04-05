@@ -15,6 +15,7 @@ También incluye autenticación, gestión de perfil y un historial de compras.
 - 🔐 Registro e inicio de sesión de usuario con Firebase
 - 📽️ Vista de cartelera con detalles de películas
 - 🛒 Agregado de películas al carrito con gestión de cantidad y horarios
+- 🛒 Persistencia del carrito al cerrar la app o cerrar sesión.
 - 📷 Posibilidad de agregar imagen de perfil desde la cámara
 - 🧠 Autenticación persistente y almacenamiento local con SQLite (solo mobile)
 - 🧾 Validaciones de formularios con Yup y React Hook Form
