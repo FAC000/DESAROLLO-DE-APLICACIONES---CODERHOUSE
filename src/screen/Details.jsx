@@ -42,9 +42,13 @@ export const Details = ({ route }) => {
                 titulo: pelicula.titulo,
                 horario: horario.hora,
                 precio: horario.precio,
-                cantidad: 1
+                cantidad: 1,
+                formato: horario.formato,
+                idioma: horario.idioma,
+                imagenKey: pelicula.imagen
             });
         }
+        
     };
 
     if (!pelicula) {

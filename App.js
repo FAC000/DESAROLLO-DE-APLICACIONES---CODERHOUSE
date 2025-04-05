@@ -9,7 +9,7 @@ import { useFonts } from "expo-font";
 import { useCartDB } from "./src/hooks/dbCart";
 import { setCarrito } from "./src/features/shop/carritoSlice";
 import { useSelector } from "react-redux";
-
+import { imageMap } from "./src/global/imagenMap";
 
 
 const Startup = () => {
@@ -57,9 +57,25 @@ const Startup = () => {
 
   useEffect(() => {
     if (!loading && user && user.localId) {
+      
+
       getItemsByUser(user.localId, (items) => {
-        dispatch(setCarrito(items));
+        const formateados = items.map(item => ({
+          titulo: item.titulo,
+          horario: {
+            hora: item.horario,
+            formato: item.formato,
+            idioma: item.idioma,
+            precio: item.precio
+          },
+          cantidad: item.cantidad,
+          imagen: imageMap[item.imagenKey] || null
+        }));
+
+        dispatch(setCarrito(formateados));
       });
+
+
     }
   }, [loading, user]);
 

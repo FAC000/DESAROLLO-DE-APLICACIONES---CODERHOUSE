@@ -14,17 +14,21 @@ export const useCartDB = () => {
                 titulo TEXT NOT NULL,
                 horario TEXT NOT NULL,
                 precio REAL NOT NULL,
-                cantidad INTEGER NOT NULL
+                cantidad INTEGER NOT NULL,
+                formato TEXT,
+                idioma TEXT,
+                imagenKey TEXT
             );
         `);
     };
 
-    const insertItem = ({ localId, titulo, horario, precio, cantidad }) => {
+    const insertItem = ({ localId, titulo, horario, precio, cantidad, formato, idioma, imagenKey }) => {
         if (!db) return;
 
         db.runSync(
-            `INSERT INTO cart (localId, titulo, horario, precio, cantidad) VALUES (?, ?, ?, ?, ?);`,
-            [localId, titulo, horario, precio, cantidad]
+            `INSERT INTO cart (localId, titulo, horario, precio, cantidad, formato, idioma, imagenKey)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
+            [localId, titulo, horario, precio, cantidad, formato, idioma, imagenKey]
         );
     };
 
@@ -45,11 +49,20 @@ export const useCartDB = () => {
         db.runSync(`DELETE FROM cart WHERE localId = ?;`, [localId]);
     };
 
+    const deleteItem = (titulo, horario, localId) => {
+        if (!db) return;
+
+        db.runSync(
+            `DELETE FROM cart WHERE titulo = ? AND horario = ? AND localId = ?;`,
+            [titulo, horario, localId]
+        );
+    };
+
     return {
         createTable,
         insertItem,
         getItemsByUser,
         clearCart,
+        deleteItem
     };
 };
-

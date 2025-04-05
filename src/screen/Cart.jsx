@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
@@ -8,7 +7,7 @@ import { Counter } from '../components/Counter';
 import { colors } from '../global/color';
 import { agregarCompra } from '../features/cart/historialSlice';
 import { useCartDB } from '../hooks/dbCart';
-
+import { imageMap } from '../global/imagenMap';
 
 export const Cart = ({ navigation }) => {
     const carrito = useSelector((state) => state.carrito.peliculas);
@@ -23,25 +22,36 @@ export const Cart = ({ navigation }) => {
             items.forEach(item => {
                 dispatch(agregarAlCarrito({
                     titulo: item.titulo,
-                    horario: { hora: item.horario, precio: item.precio },
-                    imagen: null,
+                    horario: {
+                        hora: item.horario,
+                        formato: item.formato,
+                        idioma: item.idioma,
+                        precio: item.precio
+                    },
+                    imagen: imageMap[item.imagenKey],
                     cantidad: item.cantidad
                 }));
             });
         });
+
+
     }, []);
 
     useEffect(() => {
         if (localId) {
-            clearCart(localId); 
+            clearCart(localId);
             carrito.forEach(item => {
                 saveItem({
+                    localId,
                     titulo: item.titulo,
                     horario: item.horario.hora,
                     precio: item.horario.precio,
                     cantidad: item.cantidad,
-                    userId: localId
+                    formato: item.horario.formato,
+                    idioma: item.horario.idioma,
+                    imagenKey: item.titulo
                 });
+
             });
         }
     }, [carrito]);
@@ -71,7 +81,10 @@ export const Cart = ({ navigation }) => {
             {carrito.length > 0 ? (
                 <FlatList
                     data={carrito}
-                    keyExtractor={(item, index) => `${item.titulo}-${item.horario.hora}`}
+                    keyExtractor={(item, index) =>
+                        `${item.titulo}-${item.horario?.hora}-${item.horario?.formato}-${item.horario?.idioma}-${index}`
+                    }
+
                     renderItem={({ item }) => (
                         <View style={styles.carritoItem}>
                             <View style={styles.containerImage}>
@@ -119,7 +132,6 @@ export const Cart = ({ navigation }) => {
         </View>
     );
 };
-
 
 
 const styles = StyleSheet.create({
