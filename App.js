@@ -6,12 +6,20 @@ import { Navigator } from "./src/navigation/Navigator";
 import { useDB } from "./src/hooks/useDB";
 import { setUser } from "./src/features/user/userSlice";
 import { useFonts } from "expo-font";
+import { useCartDB } from "./src/hooks/dbCart";
+import { setCarrito } from "./src/features/shop/carritoSlice";
+import { useSelector } from "react-redux";
+
 
 
 const Startup = () => {
   const { initDB, getAllSessions } = useDB();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const { createTable, getItemsByUser } = useCartDB();
+  const user = useSelector((state) => state.auth.value);
+
+
 
   const [fontsLoaded] = useFonts({
     "Oswald": require("./assets/fonts/Oswald.ttf"),
@@ -22,6 +30,7 @@ const Startup = () => {
       try {
         if (Platform.OS !== "web") {
           await initDB();
+          createTable();
           const sessions = await getAllSessions();
           if (sessions && sessions.length > 0) {
             const session = sessions[0];
@@ -45,6 +54,16 @@ const Startup = () => {
 
     initializeApp();
   }, []);
+
+  useEffect(() => {
+    if (!loading && user && user.localId) {
+      getItemsByUser(user.localId, (items) => {
+        dispatch(setCarrito(items));
+      });
+    }
+  }, [loading, user]);
+
+
 
 
   if (loading || !fontsLoaded) {

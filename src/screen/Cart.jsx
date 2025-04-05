@@ -1,35 +1,68 @@
-import React from 'react';
-import AntDesign from '@expo/vector-icons/AntDesign';
 
+import React, { useEffect } from 'react';
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useDispatch, useSelector } from "react-redux";
-import { eliminarDelCarrito, vaciarCarrito } from "../features/shop/carritoSlice";
+import { eliminarDelCarrito, vaciarCarrito, agregarAlCarrito } from "../features/shop/carritoSlice";
 import { Counter } from '../components/Counter';
 import { colors } from '../global/color';
 import { agregarCompra } from '../features/cart/historialSlice';
+import { useCartDB } from '../hooks/dbCart';
 
 
 export const Cart = ({ navigation }) => {
     const carrito = useSelector((state) => state.carrito.peliculas);
+    const localId = useSelector((state) => state.auth.localId);
     const dispatch = useDispatch();
+
+    const { createTable, getItemsByUser, saveItem, deleteItem, clearCart } = useCartDB();
+
+    useEffect(() => {
+        createTable();
+        getItemsByUser(localId, (items) => {
+            items.forEach(item => {
+                dispatch(agregarAlCarrito({
+                    titulo: item.titulo,
+                    horario: { hora: item.horario, precio: item.precio },
+                    imagen: null,
+                    cantidad: item.cantidad
+                }));
+            });
+        });
+    }, []);
+
+    useEffect(() => {
+        if (localId) {
+            clearCart(localId); 
+            carrito.forEach(item => {
+                saveItem({
+                    titulo: item.titulo,
+                    horario: item.horario.hora,
+                    precio: item.horario.precio,
+                    cantidad: item.cantidad,
+                    userId: localId
+                });
+            });
+        }
+    }, [carrito]);
 
     const manejarEliminarDelCarrito = (titulo, horario) => {
         dispatch(eliminarDelCarrito({ titulo, horario }));
+        deleteItem(titulo, horario, localId);
     };
 
     const totalCarrito = carrito.reduce((total, pelicula) => {
         return total + (pelicula.horario.precio * pelicula.cantidad);
     }, 0);
 
-
     const handleFinalizarCompra = () => {
         if (carrito.length > 0) {
             dispatch(agregarCompra(carrito));
-            navigation.navigate('Profile')
             dispatch(vaciarCarrito());
+            clearCart(localId);
+            navigation.navigate('Profile');
         }
-    }
-
+    };
 
     return (
         <View style={styles.container}>
@@ -77,7 +110,6 @@ export const Cart = ({ navigation }) => {
                 <Text style={styles.totalText}>Total a pagar: </Text>
                 <Text style={styles.totalPrecio}>${totalCarrito}</Text>
             </View>
-
 
             {carrito.length > 0 && (
                 <TouchableOpacity style={styles.finalizarButton} onPress={handleFinalizarCompra}>
@@ -144,7 +176,7 @@ const styles = StyleSheet.create({
         textShadowColor: colors.tres,
         textShadowOffset: { width: 2, height: 2 },
         textShadowRadius: 2,
-        fontFamily : 'Oswald'
+        fontFamily: 'Oswald'
     },
 
     textIdiomaFormato: {
@@ -152,7 +184,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         textTransform: 'uppercase',
         marginTop: 5,
-        fontFamily : 'Oswald',
+        fontFamily: 'Oswald',
         letterSpacing: 1
     },
     horarioText: {
@@ -160,7 +192,7 @@ const styles = StyleSheet.create({
         color: 'white',
         textTransform: 'uppercase',
         letterSpacing: 2,
-        fontFamily : 'Oswald'
+        fontFamily: 'Oswald'
     },
     contadorContainer: {
         flexDirection: 'row',
@@ -189,12 +221,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.dos,
-        
+
 
     },
     totalText: {
         fontSize: 14,
-        fontFamily : 'Oswald',
+        fontFamily: 'Oswald',
         color: colors.cinco,
         letterSpacing: 1,
         textTransform: 'uppercase',

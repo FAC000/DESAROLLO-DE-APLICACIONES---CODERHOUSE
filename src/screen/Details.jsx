@@ -2,11 +2,13 @@ import { ScrollView, View, Text, StyleSheet, FlatList, TouchableOpacity, useWind
 import YoutubePlayer from 'react-native-youtube-iframe';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { agregarAlCarrito } from '../features/shop/carritoSlice';
 import { useGetPeliculasByIdQuery } from '../services/shopService';
 import { colors } from '../global/color';
 import { imageMap } from '../global/imagenMap';
+import { useCartDB } from '../hooks/dbCart';
+
 
 export const Details = ({ route }) => {
     const { productId } = route.params;
@@ -15,23 +17,35 @@ export const Details = ({ route }) => {
     const { width } = useWindowDimensions();
     const videoHeight = (width * 9) / 16;
 
+    const { insertItem } = useCartDB();
     const dispatch = useDispatch();
+    const user = useSelector((state) => state.auth.value);
 
     const manejarAgregarAlCarrito = (horario) => {
         const imagen = imageMap[pelicula.imagen];
+
         dispatch(agregarAlCarrito({
             titulo: pelicula.titulo,
-            horario: { 
+            horario: {
                 hora: horario.hora,
                 formato: horario.formato,
                 idioma: horario.idioma,
                 precio: horario.precio
             },
             imagen,
-            cantidad: 1, 
+            cantidad: 1,
         }));
-    };
 
+        if (user?.localId) {
+            insertItem({
+                localId: user.localId,
+                titulo: pelicula.titulo,
+                horario: horario.hora,
+                precio: horario.precio,
+                cantidad: 1
+            });
+        }
+    };
 
     if (!pelicula) {
         return (
@@ -78,7 +92,7 @@ export const Details = ({ route }) => {
                             </View>
                         </TouchableOpacity>
                     )}
-                    scrollEnabled={false} 
+                    scrollEnabled={false}
                 />
 
             </View>
@@ -96,7 +110,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: colors.dos, 
+        backgroundColor: colors.dos,
     },
     containerDuracionGenero: {
         width: '100%',
@@ -106,18 +120,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: 5,
-        
+
     },
     datosDuracionGenero: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 5,
-       
+
     },
     textDuracionGenero: {
         fontSize: 14,
         color: colors.cinco,
-       
+
     },
     title: {
         color: colors.cuatro,
@@ -137,7 +151,7 @@ const styles = StyleSheet.create({
         width: '85%',
         lineHeight: 25,
         letterSpacing: 2,
-        fontFamily : 'Oswald'
+        fontFamily: 'Oswald'
     },
     informacionContainer: {
         alignItems: 'center'
@@ -170,13 +184,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 600,
         flex: 1,
-        fontFamily : 'Oswald'
+        fontFamily: 'Oswald'
     },
     horariosDuracion: {
         fontSize: 18,
         marginBottom: 10,
         color: colors.cuatro,
-        
+
     },
     horariosIdioma: {
         textAlign: 'center',
@@ -185,7 +199,7 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
         fontSize: 10,
         flex: 1,
-        fontFamily : 'Oswald'
+        fontFamily: 'Oswald'
     },
 
 });

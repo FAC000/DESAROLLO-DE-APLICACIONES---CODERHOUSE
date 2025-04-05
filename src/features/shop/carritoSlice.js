@@ -18,7 +18,7 @@ const carritoSlice = createSlice({
             } else {
                 state.peliculas.push({
                     titulo,
-                    horario,  
+                    horario,
                     imagen,
                     cantidad: 1,
                     precio: horario.precio
@@ -47,9 +47,13 @@ const carritoSlice = createSlice({
         vaciarCarrito: (state) => {
             state.peliculas = [];
         },
+        setCarrito: (state, action) => {
+            state.peliculas = action.payload;
+        },
+
     }
 });
 
-export const { agregarAlCarrito, eliminarDelCarrito, decrementarCantidad, vaciarCarrito } = carritoSlice.actions;
+export const { agregarAlCarrito, eliminarDelCarrito, decrementarCantidad, vaciarCarrito, setCarrito } = carritoSlice.actions;
 
 export default carritoSlice.reducer;

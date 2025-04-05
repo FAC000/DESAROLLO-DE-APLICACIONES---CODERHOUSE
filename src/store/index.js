@@ -6,6 +6,7 @@ import carritoReducer from '../features/shop/carritoSlice'
 import authReducer from '../features/user/userSlice'
 import historialReducer from '../features/cart/historialSlice'
 
+
 const store = configureStore({
     reducer: {
         carrito: carritoReducer,
