@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
         textShadowColor: colors.tres,
         textShadowOffset: { width: 2, height: 2 },
         textShadowRadius: 5,
-        textAlign: 'center'
+        textAlign: 'center',
+        lineHeight: 30
     },
     compraItem: {
 
