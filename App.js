@@ -23,7 +23,6 @@ const Startup = () => {
         if (Platform.OS !== "web") {
           await initDB();
           const sessions = await getAllSessions();
-
           if (sessions && sessions.length > 0) {
             const session = sessions[0];
 
@@ -39,7 +38,6 @@ const Startup = () => {
           }
         }
       } catch (err) {
-
       } finally {
         setLoading(false);
       }
@@ -47,6 +45,7 @@ const Startup = () => {
 
     initializeApp();
   }, []);
+
 
   if (loading || !fontsLoaded) {
     return null;
@@ -86,3 +85,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 });
+
